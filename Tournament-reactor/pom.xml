@@ -16,6 +16,21 @@
 
     <modules>
         <module>Tournament-web</module>
+        <module>Tournament-user-ws</module>
     </modules>
+    
+    <dependencyManagement>
+        <dependencies>
+            
+            <!-- Utilisation de lombok -->
+            <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.16.16</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 	
 </project>
