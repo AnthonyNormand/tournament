@@ -1,4 +1,4 @@
-package fr.webant.tournament.user.model;
+package fr.webant.tournament.user.core.model;
 
 import java.io.Serializable;
 import lombok.Data;
