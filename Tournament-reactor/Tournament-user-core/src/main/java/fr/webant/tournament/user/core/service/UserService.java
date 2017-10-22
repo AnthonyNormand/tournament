@@ -1,7 +1,6 @@
 package fr.webant.tournament.user.core.service;
 
-import fr.webant.tournament.user.core.model.User;
-import java.util.ArrayList;
+import fr.webant.tournament.user.core.dto.User;
 import java.util.List;
 import javax.inject.Singleton;
 
@@ -11,29 +10,30 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class UserService {
-    
+
     public List<User> findAll() {
-        List<User> list = new ArrayList<>();
-        list.add(new User());
-        list.add(new User());
-        return list;
+        return UserMapper.toUserList(UserModel.findAll());
     }
-    
+
     public User findUser(Integer userId) {
-        User user = new User();
-        user.setFirstName("toto");
-        return user;
+        return UserMapper.toUser(UserModel.findById(userId));
     }
-    
+
     public User createUser(User user) {
-        return user;
+        UserModel model = UserMapper.toModel(user);
+        model.saveIt();
+        return user; //todo not good
     }
-    
+
+    //todo pas logique de passer un user en parametre
     public User updateUser(User user) {
-        return user;
+        UserModel model = UserMapper.toModel(user);
+        model.saveIt();
+        return user; //todo not good
     }
-   
-    public void deleteUser(User user){
-        
+
+    public void deleteUser(Integer userId) {
+        UserModel.findById(userId).delete();
     }
+
 }

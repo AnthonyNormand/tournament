@@ -1,8 +1,11 @@
 package fr.webant.tournament.user.core.service;
 import javax.inject.Inject;
-import fr.webant.tournament.user.core.model.User;
 import org.codejargon.feather.Feather;
+import org.javalite.activejdbc.Base;
+import org.javalite.activejdbc.dialects.PostgreSQLDialect;
+import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -18,14 +21,13 @@ public class UserServiceTest {
     private UserService userService;
     
     @Before
-    public void init() {
+    public void init() {       
         Feather feather = Feather.with();
         userService = feather.instance(UserService.class);
     }
     
-    
-    @Test 
+    @Test
     public void testFindUser(){
-        System.out.println(userService.findUser(123));
+        //TODO not yet implemented
     }
 }
