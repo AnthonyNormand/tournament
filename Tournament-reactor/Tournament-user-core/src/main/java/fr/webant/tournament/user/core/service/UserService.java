@@ -32,6 +32,7 @@ public class UserService {
 
     public User createUser(User user) {
         UserModel model = new UserModel();
+        model.set("login", user.getLogin());
         model.set("lastname", user.getLastname());
         model.set("firstname", user.getFirstname());
         model.set("email", user.getEmail());

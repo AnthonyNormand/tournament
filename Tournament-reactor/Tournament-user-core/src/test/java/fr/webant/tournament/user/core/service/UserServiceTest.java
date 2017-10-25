@@ -8,6 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.codejargon.feather.Feather;
 import org.flywaydb.core.Flyway;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -31,6 +32,7 @@ public class UserServiceTest {
         p.load(is);
         Flyway flyway = new Flyway();
         flyway.setDataSource(p.getProperty("development.url"), p.getProperty("development.username"), p.getProperty("development.password"));
+        flyway.clean();
         flyway.migrate();
         Feather feather = Feather.with();
         userService = feather.instance(UserService.class);
@@ -48,5 +50,18 @@ public class UserServiceTest {
         List<User> users = userService.findAll();
         assertThat(users).isNotNull().hasSize(2);
         assertThat(users.get(0).getLogin()).isEqualTo("ANO");
+    }
+    
+    @Test
+    public void testCreateUser(){
+        User user = new User();
+        user.setLogin("TDO");
+        user.setFirstname("Thierry");
+        user.setLastname("Doucet");
+        user.setPassword("jaimeleponey");
+        user.setEmail("thierry.doucet@gmail.com");
+        user = userService.createUser(user);
+        assertThat(user).isNotNull();
+        assertThat(user.getId()).isEqualTo(3);
     }
 }
