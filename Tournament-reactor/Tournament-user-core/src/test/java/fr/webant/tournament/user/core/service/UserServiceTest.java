@@ -1,14 +1,17 @@
 package fr.webant.tournament.user.core.service;
-import javax.inject.Inject;
+
+import fr.webant.tournament.user.core.dto.User;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Properties;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.codejargon.feather.Feather;
-import org.javalite.activejdbc.Base;
-import org.javalite.activejdbc.dialects.PostgreSQLDialect;
-import org.junit.After;
+import org.flywaydb.core.Flyway;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 import org.junit.runners.BlockJUnit4ClassRunner;
+import org.mockito.Spy;
 
 /**
  *
@@ -16,18 +19,34 @@ import org.junit.runners.BlockJUnit4ClassRunner;
  */
 @RunWith(BlockJUnit4ClassRunner.class)
 public class UserServiceTest {
-    
-    @Inject
+
+    @Spy
     private UserService userService;
-    
+
     @Before
-    public void init() {       
+    public void init() throws Exception {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream is = classLoader.getResourceAsStream("database.properties");
+        Properties p = new Properties();
+        p.load(is);
+        Flyway flyway = new Flyway();
+        flyway.setDataSource(p.getProperty("development.url"), p.getProperty("development.username"), p.getProperty("development.password"));
+        flyway.migrate();
         Feather feather = Feather.with();
         userService = feather.instance(UserService.class);
     }
+
+    @Test
+    public void testValidCredentials() {
+        assertThat(userService.validateCredentials("ANO", "ANO")).isEqualTo(true);
+        assertThat(userService.validateCredentials("DRA", "DRA")).isEqualTo(true);
+        assertThat(userService.validateCredentials("DRA", "ANO")).isEqualTo(false);
+    }
     
     @Test
-    public void testFindUser(){
-        //TODO not yet implemented
+    public void testFindUsers(){
+        List<User> users = userService.findAll();
+        assertThat(users).isNotNull().hasSize(2);
+        assertThat(users.get(0).getLogin()).isEqualTo("ANO");
     }
 }

@@ -7,9 +7,7 @@ package fr.webant.tournament.user.core.service;
 
 import fr.webant.tournament.user.core.dto.User;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.javalite.activejdbc.LazyList;
 
 /**
@@ -17,15 +15,6 @@ import org.javalite.activejdbc.LazyList;
  * @author anthony
  */
 class UserMapper {
-
-    public static UserModel toModel(User user) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id", user.getId());
-        map.put("firstname", user.getFirstname());
-        map.put("lastname", user.getLastname());
-        map.put("email", user.getEmail());
-        return new UserModel().fromMap(map);
-    }
     
     public static User toUser(UserModel model) {
         User user = new User();
@@ -33,6 +22,7 @@ class UserMapper {
         user.setFirstname(model.getString("firstname"));
         user.setLastname(model.getString("lastname"));
         user.setEmail(model.getString("email"));
+        user.setLogin(model.getString("login"));
         return user;
     }
     

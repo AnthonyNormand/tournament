@@ -16,6 +16,8 @@ public class User implements Serializable {
     private String firstname;
     private String lastname;
     private String email;
+    private String login;
+    private String password;
 
     public Integer getId() {
         return id;
@@ -47,6 +49,22 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }    
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     @Override

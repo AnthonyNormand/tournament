@@ -47,31 +47,49 @@
         
         <dependency>
             <groupId>io.swagger</groupId>
-            <artifactId>swagger-core</artifactId>
+            <artifactId>swagger-annotations</artifactId>
             <version>1.5.16</version>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-jaxrs</artifactId>
-            <version>1.5.16</version>
-        </dependency>
+        </dependency>     
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.11</version>
-        </dependency>
-             
+            <version>2.1</version>
+        </dependency>     
     </dependencies>
    
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
+            </plugin>
+            
+            
+             <plugin>
+                <groupId>com.github.kongchen</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>3.1.5</version>
+                <configuration>
+                    <apiSources>
+                        <apiSource>
+                            <locations>
+                                <location>fr.webant.tournament.user.ws</location>
+                            </locations>
+
+                            <outputFormats>yaml</outputFormats>
+                            <basePath>/</basePath>
+                            <swaggerDirectory>${project.build.directory}</swaggerDirectory>
+                        </apiSource>
+                    </apiSources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-yaml</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
