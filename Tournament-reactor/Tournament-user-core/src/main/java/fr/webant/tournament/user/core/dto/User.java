@@ -5,18 +5,29 @@ import java.util.Objects;
 
 
 /**
- *
  * @author anthony
+ * Define a tournament's user
  */
 public class User implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
+    /** unique id*/
     private Integer id;
+   
+    /** firstname */
     private String firstname;
+    
+    /** lastname */
     private String lastname;
+    
+    /** valid email */
     private String email;
+    
+    /** validated login */
     private String login;
+    
+    /** Encrypted password (SHA512) */
     private String password;
 
     public Integer getId() {

@@ -15,10 +15,7 @@ public class UserService {
     public boolean validateCredentials(String login, String password) {
         UserModel model = UserModel.findFirst("login = ?", login);
         if (model == null) return false;
-        System.err.println(model.getString("salt"));
-        String encodedPassword = PasswordEncryptionUtil.getSHA512SecurePassword(password, model.getString("salt"));
-        System.err.println(encodedPassword);
-        System.err.println(model.getString("password"));
+        String encodedPassword = PasswordEncryptionUtil.hashPassword(password, model.getString("salt"));
         return encodedPassword.equals(model.getString("password"));
     }
 
@@ -36,8 +33,8 @@ public class UserService {
         model.set("lastname", user.getLastname());
         model.set("firstname", user.getFirstname());
         model.set("email", user.getEmail());
-        model.set("salt", PasswordEncryptionUtil.getRandomSalt());
-        model.set("password", PasswordEncryptionUtil.getSHA512SecurePassword(user.getPassword(), model.getString("salt")));
+        model.set("salt", PasswordEncryptionUtil.generateRandomSalt());
+        model.set("password", PasswordEncryptionUtil.hashPassword(user.getPassword(), model.getString("salt")));
         model.saveIt();
         model.refresh();
         return UserMapper.toUser(model);
@@ -48,7 +45,7 @@ public class UserService {
         model.set("lastname", user.getLastname());
         model.set("firstname", user.getFirstname());
         model.set("email", user.getEmail());
-        model.set("password", PasswordEncryptionUtil.getSHA512SecurePassword(user.getPassword(), model.getString("salt")));
+        model.set("password", PasswordEncryptionUtil.hashPassword(user.getPassword(), model.getString("salt")));
         model.saveIt();
         model.refresh();
         return UserMapper.toUser(model);

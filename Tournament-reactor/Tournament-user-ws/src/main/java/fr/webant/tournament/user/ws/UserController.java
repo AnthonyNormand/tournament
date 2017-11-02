@@ -68,7 +68,7 @@ public class UserController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Add a user", nickname = "createUser")
-     @ApiImplicitParams({
+    @ApiImplicitParams({
         @ApiImplicitParam(required = true, name = "user", dataType = "fr.webant.tournament.user.core.dto.User", paramType = "body")
     })
     @ApiResponses(value = {
@@ -79,23 +79,24 @@ public class UserController {
         return userService.createUser(user);
 
     }
-    
+
     @PUT
     @Path("/users")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Update a user", nickname = "updateUser")
-     @ApiImplicitParams({
+    @ApiImplicitParams({
         @ApiImplicitParam(required = true, name = "user", dataType = "fr.webant.tournament.user.core.dto.User", paramType = "body")
     })
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "User updated", response = User.class)})
+        @ApiResponse(code = 200, message = "User updated", response = User.class)
+    })
     public User updateUser(@ApiParam(hidden = true) Request req, @ApiParam(hidden = true) Response resp) {
         resp.type("application/json");
         User user = JsonIterator.deserialize(req.body(), User.class);
         return userService.updateUser(user);
     }
-    
+
     @DELETE
     @Path("/users/{userId}")
     @Produces(MediaType.APPLICATION_JSON)

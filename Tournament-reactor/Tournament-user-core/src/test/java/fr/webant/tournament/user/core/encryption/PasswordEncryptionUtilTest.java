@@ -17,31 +17,31 @@ public class PasswordEncryptionUtilTest {
   
     @Test
     public void testRandomSalt() {
-        String salt = PasswordEncryptionUtil.getRandomSalt();
+        String salt = PasswordEncryptionUtil.generateRandomSalt();
         assertThat(salt).isNotNull();
-        String salt2 = PasswordEncryptionUtil.getRandomSalt();
+        String salt2 = PasswordEncryptionUtil.generateRandomSalt();
         assertThat(salt2).isNotNull();
         assertThat(salt).isNotEqualTo(salt2);
     }
     
     @Test
     public void testRandomPassword() {
-        String salt = PasswordEncryptionUtil.getRandomSalt();
+        String salt = PasswordEncryptionUtil.generateRandomSalt();
         String word = "default";
-        String password = PasswordEncryptionUtil.getSHA512SecurePassword(word, salt);
+        String password = PasswordEncryptionUtil.hashPassword(word, salt);
         assertThat(password).isNotNull().isNotEqualTo(word);
         
         /* Same password*/
-        String password2 = PasswordEncryptionUtil.getSHA512SecurePassword(word, salt);
+        String password2 = PasswordEncryptionUtil.hashPassword(word, salt);
         assertThat(password).isEqualTo(password2);
         
         /* Different word*/
-        String password3 = PasswordEncryptionUtil.getSHA512SecurePassword("test2", salt);
+        String password3 = PasswordEncryptionUtil.hashPassword("test2", salt);
         assertThat(password).isNotEqualTo(password3);
         
         /* Different salt*/
-        salt = PasswordEncryptionUtil.getRandomSalt();
-        String password4 = PasswordEncryptionUtil.getSHA512SecurePassword(word, salt);
+        salt = PasswordEncryptionUtil.generateRandomSalt();
+        String password4 = PasswordEncryptionUtil.hashPassword(word, salt);
         assertThat(password).isNotEqualTo(password4);
     }
   

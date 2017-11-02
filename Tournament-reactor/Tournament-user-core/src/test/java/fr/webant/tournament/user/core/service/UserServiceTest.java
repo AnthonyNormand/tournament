@@ -8,7 +8,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.codejargon.feather.Feather;
 import org.flywaydb.core.Flyway;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 import org.junit.runners.BlockJUnit4ClassRunner;

@@ -24,24 +24,24 @@ public class Test {
       try{
 		
          MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
-         DB db = mongoClient.getDB( "TournamentDB" );
-         System.out.println("Connect to database successfully");
-         //boolean auth = db.authenticate(myUserName, myPassword);
-         //System.out.println("Authentication: "+auth);
-         System.out.println("Liste des utilisateurs");
-         DBCollection users = db.getCollection("users");        
-         DBCursor cursor = users.find(new BasicDBObject("firstname", "Anthony"));
-         System.out.println("Nombre de résultat : " + cursor.count());
-         while(cursor.hasNext()) {
-             DBObject user = cursor.next();
-             System.out.println(user.get("firstname"));
-         }    	
-         
-          BasicDBObject newUser = new BasicDBObject();
-          newUser.append("firstname", "titi");
-          newUser.append("lastname", "tata");
-          users.insert(newUser);
-          users.remove(newUser);
+//         DB db = mongoClient.getDB( "TournamentDB" );
+//         System.out.println("Connect to database successfully");
+//         //boolean auth = db.authenticate(myUserName, myPassword);
+//         //System.out.println("Authentication: "+auth);
+//         System.out.println("Liste des utilisateurs");
+//         DBCollection users = db.getCollection("users");        
+//         DBCursor cursor = users.find(new BasicDBObject("firstname", "Anthony"));
+//         System.out.println("Nombre de résultat : " + cursor.count());
+//         while(cursor.hasNext()) {
+//             DBObject user = cursor.next();
+//             System.out.println(user.get("firstname"));
+//         }    	
+//         
+//          BasicDBObject newUser = new BasicDBObject();
+//          newUser.append("firstname", "titi");
+//          newUser.append("lastname", "tata");
+//          users.insert(newUser);
+//          users.remove(newUser);
          mongoClient.close();
       }catch(Exception e){
          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
